@@ -1,5 +1,6 @@
-/docs
-/lms/target
+/docs/
+/lms/target/
+/.vscode/
 
 # Compiled class file
 *.class
