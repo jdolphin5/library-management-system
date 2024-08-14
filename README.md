@@ -1,6 +1,6 @@
 # Library Management System
-Simple Library Management System written in Java to demonstrate 4 OOP concepts
+Library Management System written in Java
 
 Outputs to terminal
-
 Built with Maven
+JUnit for testing
