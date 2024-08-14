@@ -1,4 +1,5 @@
 package com.lms;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,8 @@ class Library {
 
     public Book searchBook(String keyword) {
         for (Book book : books) {
-            if (book.getTitle().contains(keyword) || book.getAuthor().contains(keyword) || book.getIsbn().equals(keyword)) {
+            if (book.getTitle().contains(keyword) || book.getAuthor().contains(keyword)
+                    || book.getIsbn().equals(keyword)) {
                 return book;
             }
         }

@@ -1,4 +1,5 @@
 package com.lms;
+
 class Librarian extends User {
     public Librarian(String name, String userId) {
         super(name, userId);

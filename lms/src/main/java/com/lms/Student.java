@@ -1,4 +1,5 @@
 package com.lms;
+
 class Student extends User {
     public Student(String name, String userId) {
         super(name, userId);

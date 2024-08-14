@@ -1,4 +1,5 @@
 package com.lms;
+
 public class Main {
     public static void main(String[] args) {
         Library library = new Library();
@@ -20,7 +21,8 @@ public class Main {
         // List all books in the library
         System.out.println("\nBooks in the library:");
         for (Book book : library.getBooks()) {
-            System.out.println(book.getTitle() + " by " + book.getAuthor() + " (ISBN: " + book.getIsbn() + ")");
+            System.out.println(book.getTitle() + " by " + book.getAuthor() + " (ISBN: "
+                    + book.getIsbn() + ")");
         }
     }
 }

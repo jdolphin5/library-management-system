@@ -1,4 +1,5 @@
 package com.lms;
+
 abstract class User {
     private String name;
     private String userId;
