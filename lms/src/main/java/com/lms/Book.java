@@ -14,22 +14,22 @@ class Book {
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public String getAuthor() {
-        return author;
+        return this.author;
     }
 
     public String getIsbn() {
-        return isbn;
+        return this.isbn;
     }
 
     public boolean isBorrowed() {
-        return isBorrowed;
+        return this.isBorrowed;
     }
 
     public void setBorrowed(boolean borrowed) {
-        isBorrowed = borrowed;
+        this.isBorrowed = borrowed;
     }
 }

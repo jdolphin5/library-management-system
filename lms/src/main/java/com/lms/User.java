@@ -10,12 +10,14 @@ abstract class User {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getUserId() {
-        return userId;
+        return this.userId;
     }
 
     public abstract void borrowBook(Book book);
+
+    public abstract void returnBook(Book book);
 }

@@ -2,6 +2,7 @@ package com.lms;
 
 class Librarian extends User {
     public Librarian(String name, String userId) {
+        // call the constructor from the User class
         super(name, userId);
     }
 

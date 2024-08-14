@@ -33,4 +33,16 @@ class Library {
     public List<Book> getBooks() {
         return books;
     }
+
+    public List<Book> getBooksIfNotBorrowed() {
+        List<Book> ret = new ArrayList<>();
+
+        for (int i = 0; i < books.size(); i++) {
+            if (!books.get(i).isBorrowed()) {
+                ret.add(books.get(i));
+            }
+        }
+
+        return ret;
+    }
 }

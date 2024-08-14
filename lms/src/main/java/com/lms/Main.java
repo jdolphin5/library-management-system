@@ -24,5 +24,28 @@ public class Main {
             System.out.println(book.getTitle() + " by " + book.getAuthor() + " (ISBN: "
                     + book.getIsbn() + ")");
         }
+
+        // List all books in the library that are not borrowed currently
+        System.out.println("\nBooks in the library - not borrowed currently:");
+        for (Book book : library.getBooksIfNotBorrowed()) {
+            System.out.println(book.getTitle() + " by " + book.getAuthor() + " (ISBN: "
+                    + book.getIsbn() + ")");
+        }
+
+        // return the borrowed book
+        Book bookToReturn = library.searchBook("Effective Java");
+        if (bookToReturn != null && bookToReturn.isBorrowed()) {
+            student.returnBook(bookToReturn);
+        } else {
+            System.out.println("The book is not borrowed or not found.");
+        }
+
+        // List all books in the library that are not borrowed currently
+        System.out.println("\nBooks in the library - not borrowed currently:");
+        for (Book book : library.getBooksIfNotBorrowed()) {
+            System.out.println(book.getTitle() + " by " + book.getAuthor() + " (ISBN: "
+                    + book.getIsbn() + ")");
+        }
+
     }
 }

@@ -7,7 +7,13 @@ class Student extends User {
 
     @Override
     public void borrowBook(Book book) {
-        System.out.println(getName() + " borrowed the book: " + book.getTitle());
+        System.out.println(this.getName() + " borrowed the book: " + book.getTitle());
         book.setBorrowed(true);
+    }
+
+    @Override
+    public void returnBook(Book book) {
+        System.out.println("\n" + this.getName() + " returned the book: " + book.getTitle());
+        book.setBorrowed(false);
     }
 }
