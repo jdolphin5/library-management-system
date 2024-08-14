@@ -1,8 +1,8 @@
 # Library Management System
 Library Management System written in Java
 
-Outputs to terminal
+- Outputs to terminal
 
-Built with Maven
+- Built with Maven
 
-JUnit for testing
+- JUnit for testing
