@@ -3,20 +3,25 @@ package com.lms;
 import java.time.LocalDate;
 
 class Book {
+    public enum Category {
+        UNDEFINED, EDUCATION, ROMANCE, THRILLER, FANTASY, SCIFI
+    }
+
     private String title;
     private String author;
     private String isbn;
-    private boolean isBorrowed;
+    // private boolean isBorrowed;
     private LocalDate dueDate;
     private User reserved;
+    private Category category;
 
-    public Book(String title, String author, String isbn) {
+    public Book(String title, String author, String isbn, Category category) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
-        this.isBorrowed = false;
         this.dueDate = null;
         this.reserved = null;
+        this.category = category;
     }
 
     public String getTitle() {
@@ -35,12 +40,15 @@ class Book {
         return this.reserved;
     }
 
+    public Category getCategory() {
+        return this.category;
+    }
+
     public LocalDate isBorrowed() {
         return this.dueDate;
     }
 
-    public void setBorrowed(boolean borrowed, LocalDate dueDate) {
-        this.isBorrowed = borrowed;
+    public void setBorrowed(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
