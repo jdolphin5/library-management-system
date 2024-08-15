@@ -1,23 +1,35 @@
 package com.lms;
 
+import com.lms.auth.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class Library {
+public class Library {
     private List<Book> books;
+    private SessionManager sessionManager;
 
-    public Library() {
+    public Library(SessionManager sessionManager) {
+        this.sessionManager = sessionManager;
         books = new ArrayList<>();
     }
 
     public void addBook(Book book) {
-        books.add(book);
-        System.out.println("Added book: " + book.getTitle());
+        if (sessionManager.isAuthenticated()) {
+            books.add(book);
+            System.out.println("Added book: " + book.getTitle());
+        } else {
+            throw new SecurityException("Librarian unauthorised to add book");
+        }
+
     }
 
     public void removeBook(String isbn) {
-        books.removeIf(book -> book.getIsbn().equals(isbn));
-        System.out.println("Removed book with ISBN: " + isbn);
+        if (sessionManager.isAuthenticated()) {
+            books.removeIf(book -> book.getIsbn().equals(isbn));
+            System.out.println("Removed book with ISBN: " + isbn);
+        } else {
+            throw new SecurityException("Unauthorized access. Librarian authentication required.");
+        }
     }
 
     public Book searchBook(String keyword) {

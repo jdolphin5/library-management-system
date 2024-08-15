@@ -1,21 +1,29 @@
 package com.lms;
 
+import com.lms.auth.*;
 import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        Library library = new Library();
-        Librarian librarian = new Librarian("Alice", "L001");
+        SessionManager sessionManager = new SessionManager();
+        AuthSystem authSystem = new AuthSystem();
+        Library library = new Library(sessionManager);
+        Librarian librarian = new Librarian("Alice", "L001", "al");
+        authSystem.registerLibrarian(librarian, "abcd");
+        Librarian loggedInLibrarian = authSystem.login("al", "abcd");
+        sessionManager.login(loggedInLibrarian);
+
+
         Student student = new Student("Bob", "S001", 1);
 
         // Librarian adds books
-        librarian.addBook(library, new Book("Effective Java", "Joshua Bloch", "9780134686097",
-                Book.Category.EDUCATION));
-        librarian.addBook(library, new Book("Clean Code", "Robert C. Martin", "9780136083238",
-                Book.Category.EDUCATION));
-        librarian.addBook(library, new Book("Pride and Prejudice", "Jane Austen", "9780140434262",
-                Book.Category.ROMANCE));
-        librarian.addBook(library, new Book("Crime and Punishment", "Fyodor Dostoevsky",
+        loggedInLibrarian.addBook(library, new Book("Effective Java", "Joshua Bloch",
+                "9780134686097", Book.Category.EDUCATION));
+        loggedInLibrarian.addBook(library, new Book("Clean Code", "Robert C. Martin",
+                "9780136083238", Book.Category.EDUCATION));
+        loggedInLibrarian.addBook(library, new Book("Pride and Prejudice", "Jane Austen",
+                "9780140434262", Book.Category.ROMANCE));
+        loggedInLibrarian.addBook(library, new Book("Crime and Punishment", "Fyodor Dostoevsky",
                 "9780140449136", Book.Category.THRILLER));
 
         // Student borrows a book
@@ -50,9 +58,9 @@ public class Main {
 
         // Try to borrow a book as the librarian while currently borrowed by student
         if (bookToBorrow != null && bookToBorrow.isBorrowed() == null) {
-            librarian.borrowBook(bookToBorrow);
+            loggedInLibrarian.borrowBook(bookToBorrow);
         } else if (bookToBorrow != null && bookToBorrow.isBorrowed() != null) {
-            librarian.borrowBook(bookToBorrow);
+            loggedInLibrarian.borrowBook(bookToBorrow);
         } else {
             System.out.println("The book is not found.");
         }
