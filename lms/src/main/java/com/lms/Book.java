@@ -36,7 +36,7 @@ class Book {
         return this.isbn;
     }
 
-    public User getReservedStatus() {
+    public User getReservedUser() {
         return this.reserved;
     }
 

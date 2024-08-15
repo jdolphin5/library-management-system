@@ -8,9 +8,17 @@ class Student extends User {
     }
 
     @Override
-    public void borrowBook(Book book, User user) {
-        System.out.println(user.getName() + " borrowed the book: " + book.getTitle());
-        book.setBorrowed(LocalDate.now());
+    public void borrowBook(Book book) {
+        // book already borrowed, reserve it
+        if (book.isBorrowed() != null && book.getReservedUser() == null) {
+            System.out.println(this.getName() + " reserved the book: " + book.getTitle());
+            book.setReserved(this);
+
+            // book is not borrowed
+        } else if (book.isBorrowed() == null) {
+            System.out.println(this.getName() + " borrowed the book: " + book.getTitle());
+            book.setBorrowed(LocalDate.now());
+        }
     }
 
     @Override
@@ -23,8 +31,9 @@ class Student extends User {
 
         book.setBorrowed(null);
 
-        if (book.getReservedStatus() != null) {
-            borrowBook(book, book.getReservedStatus());
+        if (book.getReservedUser() != null) {
+            book.getReservedUser().borrowBook(book);
+            book.setReserved(null);
         }
     }
 }
