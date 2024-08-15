@@ -1,11 +1,28 @@
 package com.lms;
 
 import java.time.LocalDate;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
-class Librarian extends User {
-    public Librarian(String name, String userId) {
+public class Librarian extends User {
+    private String username;
+    private String hashedPassword;
+
+    public Librarian(String name, String userId, String username) {
         // call the constructor from the User class
         super(name, userId);
+        this.username = username;
+    }
+
+    public boolean authenticate(String inputPassword) {
+        return BCrypt.checkpw(inputPassword, this.hashedPassword);
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setHashedPassword(String hashedPw) {
+        this.hashedPassword = hashedPw;
     }
 
     @Override
