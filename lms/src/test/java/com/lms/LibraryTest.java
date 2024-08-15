@@ -11,13 +11,22 @@ class LibraryTest {
     private Library library;
     private Student student;
     private Book book;
+    private Book book2;
 
     @BeforeEach
     public void setup() {
         library = new Library();
         book = new Book("Effective Java", "Joshua Bloch", "9780134686097", Book.Category.EDUCATION);
         library.addBook(book);
-        student = new Student("Bob", "S001");
+        book2 = new Book("Clean Code", "Robert C. Martin", "9780136083238",
+                Book.Category.EDUCATION);
+        library.addBook(book2);
+        library.addBook(new Book("Pride and Prejudice", "Jane Austen", "9780140434262",
+                Book.Category.ROMANCE));
+        library.addBook(new Book("Crime and Punishment", "Fyodor Dostoevsky", "9780140449136",
+                Book.Category.THRILLER));
+
+        student = new Student("Bob", "S001", 1);
     }
 
     @Test
@@ -38,6 +47,14 @@ class LibraryTest {
         assertTrue(book.isBorrowed() != null);
         student.returnBook(book, LocalDate.now());
         assertTrue(book.isBorrowed() == null);
+    }
+
+    @Test
+    public void testBorrowLimit() {
+        student.borrowBook(book);
+        assertTrue(book.isBorrowed() != null);
+        student.borrowBook(book2);
+        assertTrue(student.getBookCount() == student.getLimit());
     }
 
 }
