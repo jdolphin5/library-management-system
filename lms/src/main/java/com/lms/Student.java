@@ -10,7 +10,7 @@ class Student extends User {
     @Override
     public void borrowBook(Book book, User user) {
         System.out.println(user.getName() + " borrowed the book: " + book.getTitle());
-        book.setBorrowed(true, LocalDate.now());
+        book.setBorrowed(LocalDate.now());
     }
 
     @Override
@@ -21,7 +21,7 @@ class Student extends User {
             System.out.println("\n" + "because the date was returned late, there is a fine of $5");
         }
 
-        book.setBorrowed(false, null);
+        book.setBorrowed(null);
 
         if (book.getReservedStatus() != null) {
             borrowBook(book, book.getReservedStatus());

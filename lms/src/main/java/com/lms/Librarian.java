@@ -17,7 +17,7 @@ class Librarian extends User {
             // book is not borrowed
         } else if (book.isBorrowed() == null) {
             System.out.println(user.getName() + " borrowed the book: " + book.getTitle());
-            book.setBorrowed(true, LocalDate.now());
+            book.setBorrowed(LocalDate.now());
         }
     }
 
@@ -29,7 +29,7 @@ class Librarian extends User {
             System.out.println("\n" + "because the date was returned late, there is a fine of $5");
         }
 
-        book.setBorrowed(false, null);
+        book.setBorrowed(null);
 
         if (book.getReservedStatus() != null) {
             borrowBook(book, book.getReservedStatus());
