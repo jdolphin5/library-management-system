@@ -9,8 +9,14 @@ public class Main {
         Student student = new Student("Bob", "S001");
 
         // Librarian adds books
-        librarian.addBook(library, new Book("Effective Java", "Joshua Bloch", "9780134686097"));
-        librarian.addBook(library, new Book("Clean Code", "Robert C. Martin", "9780136083238"));
+        librarian.addBook(library, new Book("Effective Java", "Joshua Bloch", "9780134686097",
+                Book.Category.EDUCATION));
+        librarian.addBook(library, new Book("Clean Code", "Robert C. Martin", "9780136083238",
+                Book.Category.EDUCATION));
+        librarian.addBook(library, new Book("Pride and Prejudice", "Jane Austen", "9780140434262",
+                Book.Category.ROMANCE));
+        librarian.addBook(library, new Book("Crime and Punishment", "Fyodor Dostoevsky",
+                "9780140449136", Book.Category.THRILLER));
 
         // Student borrows a book
         Book bookToBorrow = library.searchBook("Effective Java");
@@ -61,5 +67,11 @@ public class Main {
                     + book.getIsbn() + ")");
         }
 
+        // List all books in the library of category Book.Category.EDUCATION
+        System.out.println("\nBooks in the education category in the library:");
+        for (Book book : library.getBooksWithCategory(Book.Category.EDUCATION)) {
+            System.out.println(book.getTitle() + " by " + book.getAuthor() + " (ISBN: "
+                    + book.getIsbn() + ")");
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.lms;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.lms.Book.Category;
 
 class Library {
     private List<Book> books;
@@ -40,6 +41,18 @@ class Library {
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i).isBorrowed() == null) {
                 ret.add(books.get(i));
+            }
+        }
+
+        return ret;
+    }
+
+    public List<Book> getBooksWithCategory(Book.Category category) {
+        List<Book> ret = new ArrayList<>();
+
+        for (Book book : books) {
+            if (book.getCategory() == category) {
+                ret.add(book);
             }
         }
 
