@@ -13,6 +13,11 @@ public class Library {
         books = new ArrayList<>();
     }
 
+    public void addBookWithoutAuth(Book book) {
+        books.add(book);
+        System.out.println("Added book: " + book.getTitle());
+    }
+
     public void addBook(Book book) {
         if (sessionManager.isAuthenticated()) {
             books.add(book);
