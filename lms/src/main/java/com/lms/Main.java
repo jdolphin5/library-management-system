@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Library library = new Library();
         Librarian librarian = new Librarian("Alice", "L001");
-        Student student = new Student("Bob", "S001");
+        Student student = new Student("Bob", "S001", 1);
 
         // Librarian adds books
         librarian.addBook(library, new Book("Effective Java", "Joshua Bloch", "9780134686097",
@@ -22,6 +22,14 @@ public class Main {
         Book bookToBorrow = library.searchBook("Effective Java");
         if (bookToBorrow != null && bookToBorrow.isBorrowed() == null) {
             student.borrowBook(bookToBorrow);
+        } else {
+            System.out.println("The book is already borrowed or not found.");
+        }
+
+        // Student borrows a second book
+        Book bookToBorrow2 = library.searchBook("Pride and Prejudice");
+        if (bookToBorrow2 != null && bookToBorrow2.isBorrowed() == null) {
+            student.borrowBook(bookToBorrow2);
         } else {
             System.out.println("The book is already borrowed or not found.");
         }
