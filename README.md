@@ -6,3 +6,5 @@ Library Management System written in Java
 - Built with Maven
 
 - JUnit for testing
+
+- BCrypt for authentication/hashing
