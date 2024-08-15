@@ -1,5 +1,7 @@
 package com.lms;
 
+import java.time.LocalDate;
+
 abstract class User {
     private String name;
     private String userId;
@@ -19,5 +21,5 @@ abstract class User {
 
     public abstract void borrowBook(Book book);
 
-    public abstract void returnBook(Book book);
+    public abstract void returnBook(Book book, LocalDate returnDate);
 }

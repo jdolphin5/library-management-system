@@ -1,5 +1,7 @@
 package com.lms;
 
+import java.time.LocalDate;
+
 public class Main {
     public static void main(String[] args) {
         Library library = new Library();
@@ -12,7 +14,7 @@ public class Main {
 
         // Student borrows a book
         Book bookToBorrow = library.searchBook("Effective Java");
-        if (bookToBorrow != null && !bookToBorrow.isBorrowed()) {
+        if (bookToBorrow != null && bookToBorrow.isBorrowed() == null) {
             student.borrowBook(bookToBorrow);
         } else {
             System.out.println("The book is already borrowed or not found.");
@@ -34,8 +36,11 @@ public class Main {
 
         // return the borrowed book
         Book bookToReturn = library.searchBook("Effective Java");
-        if (bookToReturn != null && bookToReturn.isBorrowed()) {
-            student.returnBook(bookToReturn);
+        if (bookToReturn != null && bookToReturn.isBorrowed() != null) {
+            // late return
+            // student.returnBook(bookToReturn, LocalDate.of(2030, 8, 16));
+            // same day return
+            student.returnBook(bookToReturn, LocalDate.now());
         } else {
             System.out.println("The book is not borrowed or not found.");
         }

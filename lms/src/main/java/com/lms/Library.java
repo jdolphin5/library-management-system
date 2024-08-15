@@ -38,7 +38,7 @@ class Library {
         List<Book> ret = new ArrayList<>();
 
         for (int i = 0; i < books.size(); i++) {
-            if (!books.get(i).isBorrowed()) {
+            if (books.get(i).isBorrowed() == null) {
                 ret.add(books.get(i));
             }
         }

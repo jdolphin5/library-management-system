@@ -1,16 +1,20 @@
 package com.lms;
 
+import java.time.LocalDate;
+
 class Book {
     private String title;
     private String author;
     private String isbn;
     private boolean isBorrowed;
+    private LocalDate dueDate;
 
     public Book(String title, String author, String isbn) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.isBorrowed = false;
+        this.dueDate = null;
     }
 
     public String getTitle() {
@@ -25,11 +29,12 @@ class Book {
         return this.isbn;
     }
 
-    public boolean isBorrowed() {
-        return this.isBorrowed;
+    public LocalDate isBorrowed() {
+        return this.dueDate;
     }
 
-    public void setBorrowed(boolean borrowed) {
+    public void setBorrowed(boolean borrowed, LocalDate dueDate) {
         this.isBorrowed = borrowed;
+        this.dueDate = dueDate;
     }
 }
