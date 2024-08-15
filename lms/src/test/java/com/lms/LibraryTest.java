@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 
+import com.lms.auth.*;
 import java.time.LocalDate;
 
 class LibraryTest {
 
+    private SessionManager sessionManager;
     private Library library;
     private Student student;
     private Book book;
@@ -15,16 +17,17 @@ class LibraryTest {
 
     @BeforeEach
     public void setup() {
-        library = new Library();
+        sessionManager = new SessionManager();
+        library = new Library(sessionManager);
         book = new Book("Effective Java", "Joshua Bloch", "9780134686097", Book.Category.EDUCATION);
-        library.addBook(book);
+        library.addBookWithoutAuth(book);
         book2 = new Book("Clean Code", "Robert C. Martin", "9780136083238",
                 Book.Category.EDUCATION);
-        library.addBook(book2);
-        library.addBook(new Book("Pride and Prejudice", "Jane Austen", "9780140434262",
+        library.addBookWithoutAuth(book2);
+        library.addBookWithoutAuth(new Book("Pride and Prejudice", "Jane Austen", "9780140434262",
                 Book.Category.ROMANCE));
-        library.addBook(new Book("Crime and Punishment", "Fyodor Dostoevsky", "9780140449136",
-                Book.Category.THRILLER));
+        library.addBookWithoutAuth(new Book("Crime and Punishment", "Fyodor Dostoevsky",
+                "9780140449136", Book.Category.THRILLER));
 
         student = new Student("Bob", "S001", 1);
     }
@@ -55,6 +58,18 @@ class LibraryTest {
         assertTrue(book.isBorrowed() != null);
         student.borrowBook(book2);
         assertTrue(student.getBookCount() == student.getLimit());
+    }
+
+    @Test
+    public void testLibrarianAuth() {
+        AuthSystem authSystem = new AuthSystem();
+        Librarian librarian = new Librarian("TestName", "1", "TestUsername");
+        authSystem.registerLibrarian(librarian, "TestPassword");
+        Librarian authenticatedLibrarian = authSystem.login("TestUsername", "TestPassword");
+
+        assertFalse(sessionManager.isAuthenticated());
+        sessionManager.login(authenticatedLibrarian);
+        assertTrue(sessionManager.isAuthenticated());
     }
 
 }
