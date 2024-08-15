@@ -19,7 +19,7 @@ abstract class User {
         return this.userId;
     }
 
-    public abstract void borrowBook(Book book);
+    public abstract void borrowBook(Book book, User user);
 
     public abstract void returnBook(Book book, LocalDate returnDate);
 }

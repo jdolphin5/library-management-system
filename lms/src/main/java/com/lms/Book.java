@@ -8,6 +8,7 @@ class Book {
     private String isbn;
     private boolean isBorrowed;
     private LocalDate dueDate;
+    private User reserved;
 
     public Book(String title, String author, String isbn) {
         this.title = title;
@@ -15,6 +16,7 @@ class Book {
         this.isbn = isbn;
         this.isBorrowed = false;
         this.dueDate = null;
+        this.reserved = null;
     }
 
     public String getTitle() {
@@ -29,6 +31,10 @@ class Book {
         return this.isbn;
     }
 
+    public User getReservedStatus() {
+        return this.reserved;
+    }
+
     public LocalDate isBorrowed() {
         return this.dueDate;
     }
@@ -36,5 +42,9 @@ class Book {
     public void setBorrowed(boolean borrowed, LocalDate dueDate) {
         this.isBorrowed = borrowed;
         this.dueDate = dueDate;
+    }
+
+    public void setReserved(User user) {
+        this.reserved = user;
     }
 }

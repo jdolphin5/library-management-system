@@ -15,7 +15,7 @@ public class Main {
         // Student borrows a book
         Book bookToBorrow = library.searchBook("Effective Java");
         if (bookToBorrow != null && bookToBorrow.isBorrowed() == null) {
-            student.borrowBook(bookToBorrow);
+            student.borrowBook(bookToBorrow, student);
         } else {
             System.out.println("The book is already borrowed or not found.");
         }
@@ -32,6 +32,15 @@ public class Main {
         for (Book book : library.getBooksIfNotBorrowed()) {
             System.out.println(book.getTitle() + " by " + book.getAuthor() + " (ISBN: "
                     + book.getIsbn() + ")");
+        }
+
+        // Try to borrow a book as the librarian while currently borrowed by student
+        if (bookToBorrow != null && bookToBorrow.isBorrowed() == null) {
+            librarian.borrowBook(bookToBorrow, librarian);
+        } else if (bookToBorrow != null && bookToBorrow.isBorrowed() != null) {
+            librarian.borrowBook(bookToBorrow, librarian);
+        } else {
+            System.out.println("The book is not found.");
         }
 
         // return the borrowed book

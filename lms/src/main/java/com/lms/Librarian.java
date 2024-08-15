@@ -9,9 +9,16 @@ class Librarian extends User {
     }
 
     @Override
-    public void borrowBook(Book book) {
-        System.out.println(getName() + " borrowed the book: " + book.getTitle());
-        book.setBorrowed(true, LocalDate.now());
+    public void borrowBook(Book book, User user) {
+        // book already borrowed, reserve it
+        if (book.isBorrowed() != null && book.getReservedStatus() == null) {
+            book.setReserved(user);
+
+            // book is not borrowed
+        } else if (book.isBorrowed() == null) {
+            System.out.println(user.getName() + " borrowed the book: " + book.getTitle());
+            book.setBorrowed(true, LocalDate.now());
+        }
     }
 
     @Override
@@ -23,6 +30,11 @@ class Librarian extends User {
         }
 
         book.setBorrowed(false, null);
+
+        if (book.getReservedStatus() != null) {
+            borrowBook(book, book.getReservedStatus());
+            book.setReserved(null);
+        }
     }
 
     public void addBook(Library library, Book book) {

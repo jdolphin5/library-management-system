@@ -8,8 +8,8 @@ class Student extends User {
     }
 
     @Override
-    public void borrowBook(Book book) {
-        System.out.println(this.getName() + " borrowed the book: " + book.getTitle());
+    public void borrowBook(Book book, User user) {
+        System.out.println(user.getName() + " borrowed the book: " + book.getTitle());
         book.setBorrowed(true, LocalDate.now());
     }
 
@@ -18,9 +18,13 @@ class Student extends User {
         System.out.println("\n" + this.getName() + " returned the book: " + book.getTitle());
 
         if (book.isBorrowed() != null && returnDate.isAfter(book.isBorrowed())) {
-            System.out.println("\n" + "Because the book was returned late, there is a fine of $5");
+            System.out.println("\n" + "because the date was returned late, there is a fine of $5");
         }
 
         book.setBorrowed(false, null);
+
+        if (book.getReservedStatus() != null) {
+            borrowBook(book, book.getReservedStatus());
+        }
     }
 }
