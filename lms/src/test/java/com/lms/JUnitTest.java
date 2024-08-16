@@ -1,13 +1,23 @@
 package com.lms;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static java.time.Duration.ofMillis;
+import static java.time.Duration.ofMinutes;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.BeforeEach;
-
-import com.lms.auth.*;
+import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
+import com.lms.*;
+import com.lms.auth.AuthSystem;
+import com.lms.auth.SessionManager;
 
-class LibraryTest {
+public class JUnitTest {
 
     private SessionManager sessionManager;
     private Library library;
@@ -15,8 +25,9 @@ class LibraryTest {
     private Book book;
     private Book book2;
 
+    // Fixtures is a fixed state of a set of objects used as a baseline for running tests
     @BeforeEach
-    public void setup() {
+    void setup() {
         sessionManager = new SessionManager();
         library = new Library(sessionManager);
         book = new Book("Effective Java", "Joshua Bloch", "9780134686097", Book.Category.EDUCATION);
@@ -33,19 +44,19 @@ class LibraryTest {
     }
 
     @Test
-    public void testAddBook() {
+    void testAddBook() {
         assertTrue(library.getBooks().contains(book));
     }
 
     @Test
-    public void testSearchBook() {
+    void testSearchBook() {
         Book foundBook = library.searchBook("Effective Java");
         assertNotNull(foundBook);
         assertEquals("Effective Java", foundBook.getTitle());
     }
 
     @Test
-    public void testReturnBook() {
+    void testReturnBook() {
         student.borrowBook(book);
         assertTrue(book.isBorrowed() != null);
         student.returnBook(book, LocalDate.now());
@@ -53,7 +64,7 @@ class LibraryTest {
     }
 
     @Test
-    public void testBorrowLimit() {
+    void testBorrowLimit() {
         student.borrowBook(book);
         assertTrue(book.isBorrowed() != null);
         student.borrowBook(book2);
@@ -61,7 +72,7 @@ class LibraryTest {
     }
 
     @Test
-    public void testLibrarianAuth() {
+    void testLibrarianAuth() {
         AuthSystem authSystem = new AuthSystem();
         Librarian librarian = new Librarian("TestName", "1", "TestUsername");
         authSystem.registerLibrarian(librarian, "TestPassword");
@@ -72,4 +83,20 @@ class LibraryTest {
         assertTrue(sessionManager.isAuthenticated());
     }
 
+    @Test
+    void timeoutNotExceededLibrarianAuth() {
+        assertTimeout(ofMillis(200), () -> testAuth());
+    }
+
+    void testAuth() throws InterruptedException {
+        AuthSystem authSystem = new AuthSystem();
+        Librarian librarian = new Librarian("TestName", "1", "TestUsername");
+        authSystem.registerLibrarian(librarian, "TestPassword");
+        Librarian authenticatedLibrarian = authSystem.login("TestUsername", "TestPassword");
+
+        sessionManager.login(authenticatedLibrarian);
+
+        if (!sessionManager.isAuthenticated())
+            throw new InterruptedException("authentication failed");
+    }
 }
